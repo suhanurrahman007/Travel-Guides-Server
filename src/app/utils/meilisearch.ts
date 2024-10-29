@@ -1,8 +1,9 @@
 import { MeiliSearch } from 'meilisearch';
 import config from '../config';
 import { Document, Types } from 'mongoose';
-import { TItem } from '../modules/Item/item.interface';
-import { noImage } from '../modules/Item/item.constant';
+import { TPost } from '../modules/Post/post.interface';
+import { noImage } from '../modules/Post/post.constant';
+
 
 
 export const meiliClient = new MeiliSearch({
@@ -11,18 +12,18 @@ export const meiliClient = new MeiliSearch({
 });
 
 export async function addDocumentToIndex(
-  result: Document<unknown, object, TItem> & TItem & { _id: Types.ObjectId },
+  result: Document<unknown, object, TPost> & TPost & { _id: Types.ObjectId },
   indexKey: string
 ) {
   const index = meiliClient.index(indexKey);
 
-  const { _id, title, description, images } = result;
+  const { _id, title, content, images } = result;
   const firstImage = images?.[0] || noImage;
 
   const document = {
     id: _id.toString(), // Ensure the ID is a string
     title,
-    description,
+    content,
     thumbnail: firstImage,
   };
 

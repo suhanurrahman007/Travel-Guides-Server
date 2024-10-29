@@ -17,6 +17,24 @@ const createPostValidationSchema = z.object({
     }),
 });
 
+const updatePostValidationSchema = z.object({
+    body: z.object({
+        authorId: z.string().optional().refine((id) => !id || Types.ObjectId.isValid(id), {
+            message: "Invalid ObjectId for authorId",
+        }),
+        title: z.string().optional(),
+        content: z.string().optional(),
+        images: z.array(z.string().url()).optional(),
+        category: z.string().optional(),
+        tags: z.array(z.string()).optional(),
+        premium: z.boolean().optional(),
+        upVotes: z.number().nonnegative().optional().default(0),
+        comments: z.array(z.string()).optional(),
+    }),
+});
+
+
 export const PostValidationSchema = {
     createPostValidationSchema,
+    updatePostValidationSchema
 };

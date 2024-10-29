@@ -1,8 +1,6 @@
 import express from 'express';
 import { AuthRoutes } from '../modules/Auth/auth.route';
 import { UserRoutes } from '../modules/User/user.route';
-import { ItemRoutes } from '../modules/Item/item.route';
-import { ItemCategoryRoutes } from '../modules/ItemCategory/itemCategory.route';
 import { ProfileRoutes } from '../modules/Profile/profile.route';
 import { MeilisearchRoutes } from '../modules/Meilisearch/meilisearch.routes';
 import { PostRoutes } from '../modules/Post/post.route';
@@ -13,14 +11,6 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: AuthRoutes,
-  },
-  {
-    path: '/item-categories',
-    route: ItemCategoryRoutes,
-  },
-  {
-    path: '/items',
-    route: ItemRoutes,
   },
   {
     path: '/search-items',

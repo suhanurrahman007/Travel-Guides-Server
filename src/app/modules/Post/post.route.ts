@@ -21,17 +21,17 @@ router.post(
     PostControllers.createPost
 );
 
-// router.get('/', ItemControllers.getAllItems);
+router.get('/', PostControllers.getAllPosts);
 
-// router.get('/:id', ItemControllers.getItem);
+router.get('/:id', PostControllers.getPost);
 
-// router.put(
-//   '/:id',
-//   auth(USER_ROLE.USER),
-//   validateRequest(ItemValidation.updateItemValidationSchema),
-//   ItemControllers.updateItem
-// );
+router.put(
+  '/:id',
+    auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  validateRequest(PostValidationSchema.updatePostValidationSchema),
+  PostControllers.updatePost
+);
 
-// router.delete('/:id', auth(USER_ROLE.USER), ItemControllers.deleteItem);
+router.delete('/:id', auth(USER_ROLE.USER, USER_ROLE.ADMIN), PostControllers.deletePost);
 
 export const PostRoutes = router;
