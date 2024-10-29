@@ -5,6 +5,7 @@ import { ItemRoutes } from '../modules/Item/item.route';
 import { ItemCategoryRoutes } from '../modules/ItemCategory/itemCategory.route';
 import { ProfileRoutes } from '../modules/Profile/profile.route';
 import { MeilisearchRoutes } from '../modules/Meilisearch/meilisearch.routes';
+import { PostRoutes } from '../modules/Post/post.route';
 
 const router = express.Router();
 
@@ -24,6 +25,10 @@ const moduleRoutes = [
   {
     path: '/search-items',
     route: MeilisearchRoutes,
+  },
+  {
+    path: '/posts',
+    route: PostRoutes,
   },
   {
     path: '/users',
