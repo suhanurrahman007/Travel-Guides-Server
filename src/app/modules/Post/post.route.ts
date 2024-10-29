@@ -12,22 +12,32 @@ import { PostControllers } from './post.controller';
 const router = express.Router();
 
 router.post(
-    '/',
-    auth(USER_ROLE.USER, USER_ROLE.ADMIN),
-    multerUpload.fields([{ name: 'postImages' }]),
-    validateImageFileRequest(ImageFilesArrayZodSchema),
-    parseBody,
-    validateRequest(PostValidationSchema.createPostValidationSchema),
-    PostControllers.createPost
+  '/',
+  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  multerUpload.fields([{ name: 'postImages' }]),
+  validateImageFileRequest(ImageFilesArrayZodSchema),
+  parseBody,
+  validateRequest(PostValidationSchema.createPostValidationSchema),
+  PostControllers.createPost
 );
 
-router.get('/', PostControllers.getAllPosts);
+auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  router.get('/',
+    auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+    PostControllers.getAllPosts);
 
-router.get('/:id', PostControllers.getPost);
+router.get('/:id', auth(USER_ROLE.USER, USER_ROLE.ADMIN), PostControllers.getPost);
+
+router.get('/category/:categoryName', PostControllers.getPostCategory);
+router.get('/tag/:tagName', PostControllers.getPostTag);
+router.get('/', PostControllers.getPostsByPremiumStatus);
+router.post('/:postId/upvote', auth(USER_ROLE.USER, USER_ROLE.ADMIN), PostControllers.upvotePost);
+router.post('/:postId/downvote', auth(USER_ROLE.USER, USER_ROLE.ADMIN), PostControllers.downvotePost);
+
 
 router.put(
   '/:id',
-    auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
   validateRequest(PostValidationSchema.updatePostValidationSchema),
   PostControllers.updatePost
 );

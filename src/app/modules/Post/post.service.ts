@@ -31,9 +31,26 @@ const getAllPostsFromDB = async (query: Record<string, unknown>) => {
     return result;
 };
 
+const getPostsByPremiumStatusFromDB = async (premium: boolean) => {
+    const result = await PostModel.find({ premium: premium })
+        .populate('authorId')
+    return result;
+};
+
 const getPostFromDB = async (postId: string) => {
+
     const result = await PostModel.findById(postId)
         .populate('authorId')
+    return result;
+};
+
+const getPostCategoryFromDB = async(categoryName: string) => {
+    const result = await PostModel.find({ category: categoryName })
+    return result;
+};
+
+const getPostTagFromDB = async (tagName: string) => {
+    const result = await PostModel.find({ tags: tagName })
     return result;
 };
 
@@ -62,7 +79,9 @@ export const PostServices = {
     getAllPostsFromDB,
     getPostFromDB,
     updatePostInDB,
-    deletePostFromDB
-
+    deletePostFromDB,
+    getPostCategoryFromDB,
+    getPostTagFromDB,
+    getPostsByPremiumStatusFromDB,
 };
 

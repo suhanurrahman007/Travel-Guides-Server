@@ -5,7 +5,6 @@ import { User } from './user.model';
 
 const createUser = async (payload: TUser) => {
   const user = await User.create(payload);
-
   return user;
 };
 

@@ -46,6 +46,24 @@ const userSchema = new Schema<TUser, IUserModel>(
       type: String,
       default: null
     },
+    bio: {
+      type: String,
+      default: ''
+    },
+    verified: {
+      type: Boolean,
+      default: true,
+    },
+    followers: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Followers', // Assuming you have a Comment model
+      default: [],
+    },
+    following: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Following', // Assuming you have a Comment model
+      default: [],
+    },
   },
   {
     timestamps: true,
