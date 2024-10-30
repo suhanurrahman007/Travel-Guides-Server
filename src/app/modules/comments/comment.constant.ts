@@ -1,1 +1,1 @@
-// export const commentSearchableFields = ['content'];
+export const commentSearchableFields = ['content'];

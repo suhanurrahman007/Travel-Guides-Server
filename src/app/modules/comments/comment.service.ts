@@ -5,6 +5,7 @@ import { PostModel } from "../Post/post.model";
 // import { commentSearchableFields } from "./comment.constant";
 import { TComment } from "./comment.interface";
 import { CommentModel } from "./comment.model";
+import { commentSearchableFields } from "./comment.constant";
 
 const createCommentIntoDB = async (payload: TComment) => {
     const postExists = await PostModel.exists({ _id: payload.postId });
@@ -19,11 +20,11 @@ const createCommentIntoDB = async (payload: TComment) => {
 
 const getAllCommentsFromDB = async (query: Record<string, unknown>) => {
     const commentQuery = new QueryBuilder(
-        CommentModel.find().populate('userId'),
+        CommentModel.find().populate('userId postId'),
         query
     )
         .filter()
-        // .search(commentSearchableFields)
+        .search(commentSearchableFields)
         .sort()
         .paginate()
         .fields();
@@ -36,7 +37,7 @@ const getAllCommentsFromDB = async (query: Record<string, unknown>) => {
 const getCommentFromDB = async (CommentId: string) => {
 
     const result = await CommentModel.findById(CommentId)
-        .populate('userId')
+        .populate('userId postId')
     return result;
 };
 
@@ -49,7 +50,6 @@ const updateCommentInDB = async (commentId: string, payload: TComment, userId: s
     const result = await CommentModel.findByIdAndUpdate(commentId, payload, { new: true });
     return result;
 };
-
 
 const deleteCommentFromDB = async (commentId: string, userId: string) => {
     const existingComment = await CommentModel.findById(commentId)
