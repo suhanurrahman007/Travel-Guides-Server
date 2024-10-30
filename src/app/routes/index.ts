@@ -4,6 +4,7 @@ import { UserRoutes } from '../modules/User/user.route';
 import { ProfileRoutes } from '../modules/Profile/profile.route';
 import { MeilisearchRoutes } from '../modules/Meilisearch/meilisearch.routes';
 import { PostRoutes } from '../modules/Post/post.route';
+import { CommentRoutes } from '../modules/comments/comment.route';
 
 const router = express.Router();
 
@@ -19,6 +20,10 @@ const moduleRoutes = [
   {
     path: '/posts',
     route: PostRoutes,
+  },
+  {
+    path: '/comments',
+    route: CommentRoutes,
   },
   {
     path: '/users',
