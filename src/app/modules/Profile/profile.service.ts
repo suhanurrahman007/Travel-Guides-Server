@@ -9,7 +9,7 @@ import { TUserProfileUpdate } from "./profile.interface";
 const getMyProfile = async (user: JwtPayload) => {
     const profile = await User.findOne({
         email: user.email,
-        status: USER_STATUS.ACTIVE
+        status: USER_STATUS.Pending
     });
 
     if (!profile) {
@@ -26,7 +26,7 @@ const updateMyProfile = async (
 ) => {
     const filter = {
         email: user.email,
-        status: USER_STATUS.ACTIVE
+        status: USER_STATUS.Pending
     };
 
     const profile = await User.findOne(filter);
