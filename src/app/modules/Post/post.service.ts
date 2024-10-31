@@ -17,7 +17,10 @@ const createPostIntoDB = async (payload: TPost, images: TImageFiles) => {
 
 const getAllPostsFromDB = async (query: Record<string, unknown>) => {
     const PostQuery = new QueryBuilder(
-        PostModel.find().populate('authorId'),
+        PostModel.find().populate([
+            { path: 'authorId' },
+            { path: 'comments', populate: { path: 'reply' } }
+        ]),
         query
     )
         .filter()
@@ -33,18 +36,24 @@ const getAllPostsFromDB = async (query: Record<string, unknown>) => {
 
 const getPostsByPremiumStatusFromDB = async (premium: boolean) => {
     const result = await PostModel.find({ premium: premium })
-        .populate('authorId')
+        .populate([
+            { path: 'authorId' },
+            { path: 'comments', populate: { path: 'reply' } }
+        ])
     return result;
 };
 
 const getPostFromDB = async (postId: string) => {
 
     const result = await PostModel.findById(postId)
-        .populate('authorId')
+        .populate([
+            { path: 'authorId' },
+            { path: 'comments', populate: { path: 'reply' } }
+        ])
     return result;
 };
 
-const getPostCategoryFromDB = async(categoryName: string) => {
+const getPostCategoryFromDB = async (categoryName: string) => {
     const result = await PostModel.find({ category: categoryName })
     return result;
 };

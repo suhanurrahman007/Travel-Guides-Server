@@ -50,17 +50,17 @@ const postSchema = new Schema<TPost>(
 );
 
 // Pre-save middleware to check if the post already exists
-postSchema.pre('save', async function (next) {
-    const isPostExists = await PostModel.findOne({
-        title: this.title,
-        authorId: this.authorId,
-    });
+// postSchema.pre('save', async function (next) {
+//     const isPostExists = await PostModel.findOne({
+//         title: this.title,
+//         authorId: this.authorId,
+//     });
 
-    if (isPostExists) {
-        throw new Error('Post with this title already exists for this author!');
-    }
-    next();
-});
+//     if (isPostExists) {
+//         throw new Error('Post with this title already exists for this author!');
+//     }
+//     next();
+// });
 
 // Create the Post model
 export const PostModel = model<TPost>('Post', postSchema);

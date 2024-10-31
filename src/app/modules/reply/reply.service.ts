@@ -13,15 +13,23 @@ const createReplyIntoDB = async (payload: TReply) => {
         throw new AppError(httpStatus.NOT_FOUND, "Post not found");
     }
 
-    const commentExists = await CommentModel.exists({ _id: payload.commentId });
-    if (!commentExists) {
+    const comment = await CommentModel.findById(payload.commentId);
+    if (!comment) {
         throw new AppError(httpStatus.NOT_FOUND, "Comment not found");
     }
 
-    // Create the Reply
     const result = await ReplyModel.create(payload);
+
+    if (!comment.reply) {
+        comment.reply = [];
+    }
+    comment.reply.push(result._id);
+
+    await comment.save();
+
     return result;
 };
+
 
 const getAllReplyFromDB = async (query: Record<string, unknown>) => {
     const ReplyQuery = new QueryBuilder(

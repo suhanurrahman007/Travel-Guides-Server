@@ -27,8 +27,22 @@ const getSingleUserFromDB = async (id: string) => {
   return user;
 };
 
+// const verifyUserProfile = async (userId: Types.ObjectId) => {
+//   const user = await User.findById(userId);
+//   if (!user) {
+//     throw new Error("User not found");
+//   }
+
+
+//   // Update user's verification status
+//   user.status = "Pending";
+//   const updatedUser = await user.save();
+
+//   return updatedUser;
+// };
 export const UserServices = {
   createUser,
   getAllUsersFromDB,
   getSingleUserFromDB,
+  // verifyUserProfile,
 };

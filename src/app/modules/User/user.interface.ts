@@ -18,6 +18,8 @@ export type TUser = {
   verified?: boolean;
   following?: Types.ObjectId;
   followers?: Types.ObjectId;
+  upVotes?: number;
+  location?: string;
 };
 
 export interface IUserModel extends Model<TUser> {

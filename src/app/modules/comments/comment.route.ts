@@ -14,8 +14,8 @@ router.post(
     CommentControllers.createComment // Controller method to handle the request
 );
 
-auth(USER_ROLE.USER, USER_ROLE.ADMIN),
-    router.get('/',
+
+router.get('/', auth(USER_ROLE.USER, USER_ROLE.ADMIN),
         CommentControllers.getAllComments);
 
 router.get('/:id', CommentControllers.getComment);

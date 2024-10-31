@@ -5,4 +5,5 @@ export interface TComment {
     postId: Types.ObjectId; 
     content: string;
     upVotes: number;
+    reply: Types.ObjectId[];
 }

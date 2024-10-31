@@ -33,7 +33,7 @@ const userSchema = new Schema<TUser, IUserModel>(
     status: {
       type: String,
       enum: Object.keys(USER_STATUS),
-      default: USER_STATUS.ACTIVE,
+      default: USER_STATUS.Pending,
     },
     passwordChangedAt: {
       type: Date,
@@ -63,6 +63,14 @@ const userSchema = new Schema<TUser, IUserModel>(
       type: [Schema.Types.ObjectId],
       ref: 'Following', // Assuming you have a Comment model
       default: [],
+    },
+    upVotes: {
+      type: String,
+      default: 0,
+    },
+    location: {
+      type: String,
+      default: ''
     },
   },
   {

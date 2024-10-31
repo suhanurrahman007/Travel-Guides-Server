@@ -21,6 +21,11 @@ const commentSchema = new Schema<TComment>(
             ref: 'Post', // Assuming 'Post' is the correct reference
             required: true,
         },
+        reply: {
+            type: [Schema.Types.ObjectId],
+            ref: 'Reply', // Assuming you have a Comment model
+            default: [],
+        },
     },
     {
         timestamps: true, // Automatically manage createdAt and updatedAt fields

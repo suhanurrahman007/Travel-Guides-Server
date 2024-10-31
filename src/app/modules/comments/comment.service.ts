@@ -6,16 +6,27 @@ import { PostModel } from "../Post/post.model";
 import { TComment } from "./comment.interface";
 import { CommentModel } from "./comment.model";
 import { commentSearchableFields } from "./comment.constant";
+import { addDocumentToIndex } from "../../utils/meilisearch";
 
 const createCommentIntoDB = async (payload: TComment) => {
-    const postExists = await PostModel.exists({ _id: payload.postId });
-    if (!postExists) {
+    const post = await PostModel.findById(payload.postId);
+
+    if (!post) {
         throw new AppError(httpStatus.NOT_FOUND, "Post not found");
     }
 
-    // Create the comment
-    const result = await CommentModel.create(payload);
-    return result;
+    const comment = await CommentModel.create(payload);
+
+    if (!post.comments) {
+        post.comments = [];
+    }
+
+    post.comments.push(comment._id);
+    const updatedPost = await post.save();
+
+    await addDocumentToIndex(updatedPost, 'Posts');
+    
+    return comment;
 };
 
 const getAllCommentsFromDB = async (query: Record<string, unknown>) => {

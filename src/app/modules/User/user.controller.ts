@@ -36,8 +36,32 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
+
+// const requestVerification = catchAsync(async (req, res) => {
+//   const userId  = req.params.id;
+//   const requesterId = req.user._id; 
+
+//   console.log(userId, requesterId)
+//   if (!requesterId || requesterId.toString() !== userId) {
+//     return sendResponse(res, {
+//       success: false,
+//       statusCode: httpStatus.FORBIDDEN,
+//       message: "You are not authorized to verify this profile",
+//     });
+//   }
+//   const verificationResult = await UserServices.verifyUserProfile(new Types.ObjectId(userId));
+
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.OK,
+//     message: 'User Created Successfully',
+//     data: verificationResult,
+//   });
+// });
+
 export const UserControllers = {
   getSingleUser,
   userRegister,
   getAllUsers,
+  // requestVerification
 };
